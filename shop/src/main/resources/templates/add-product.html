@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+        <link rel="stylesheet" href="/css/style2.css">
+
+
+</head>
+<body>
+<form action="#" th:action="@{/add}" th:object="${product}" method="post" enctype="multipart/form-data">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Name" required>
+
+    <label for="price">Price</label>
+    <input type="text" th:field="*{price}" id="price" placeholder="Price" required>
+
+    <label for="model">Model</label>
+    <input type="text" th:field="*{model}" id="model" placeholder="Quantity" required>
+
+    <label for="color">Color</label>
+    <input type="text" th:field="*{color}" id="color" placeholder="Color" required>
+
+    <label for="image">Image</label>
+    <input type="file" th:field="*{image}" id="image" placeholder="Image" >
+
+    <input type="submit" value="Add Product">
+</form>
+</body>
+</html>

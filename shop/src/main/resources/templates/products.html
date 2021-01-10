@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<h3 class="text-center">list of products</h3>
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">image</th>
+        <th scope="col">name</th>
+        <th scope="col">price</th>
+        <th scope="col">color</th>
+        <th scope="col">model</th>
+        <th scope="col">order</th>
+    </tr>
+    </thead>
+                <tbody>
+
+                <tr th:each="product:${products}">
+                    <th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 100px;height
+						: 100px;"></th>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.color}"></td>
+                    <td th:text="${product.model}"></td>
+                    <td>
+                        <a th:href="@{/cart/{id}(id=${product.id})}">Add to Cart</a>
+                    </td>
+
+
+                </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+        <p><a href="/signup">Add new Product</a></p>
+    </div>
+</div>
+</div>
+</body>
