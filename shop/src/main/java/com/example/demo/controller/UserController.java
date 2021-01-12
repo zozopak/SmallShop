@@ -7,6 +7,7 @@ import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,15 +55,15 @@ public class UserController {
         return "redirect:/users";
     }
     @GetMapping("/edit/{id}")
-    public  String editUser(@PathVariable long id ,Model model){
+    public  String editUser(@PathVariable String id ,Model model){
         Optional<Users> user=userService.getUser(id);
         model.addAttribute("user",user);
         return "update-user";
     }
-
-
+    @Transactional
    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable long id,Model model){
+    public String deleteUser(@PathVariable String id,Model model){
+        authorityService.deleteAuthority(id);
         userService.deleteUser(id);
         List<Users>users=userService.findAll();
         model.addAttribute("users",users);
@@ -72,7 +73,7 @@ public class UserController {
    @GetMapping
    public String index(Model model){
         List<Users> users=userService.findAll();
-        model.addAttribute("users",users);
+        model.addAttribute("usersList",users);
         return "users";
    }
 }

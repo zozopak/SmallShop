@@ -24,12 +24,12 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public Optional<Users> getUser(long id) {
-        return usersRepo.findById(id);
+    public Optional<Users> getUser(String id) {
+        return usersRepo.findById( id);
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void deleteUser(String id) {
       usersRepo.deleteById(id);
     }
 

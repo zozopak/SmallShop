@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -38,16 +39,17 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
         http
 
                 .authorizeRequests()
-              //  .antMatchers("/").hasRole("USER")
-           .antMatchers("/users/**").hasRole("ADMIN")
+               .antMatchers("/cart/**").hasRole("USER")
+           .antMatchers("/users/**","/product-register/**","/edit/**","/update/**","/delete/**").hasRole("ADMIN")
+
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticateTheUser")
                 .permitAll()
                 .and()
-                .logout()
-                .permitAll().and().exceptionHandling().accessDeniedPage("/acsess-denied");
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+                .and().exceptionHandling().accessDeniedPage("/acsess-denied");
     }
 
 

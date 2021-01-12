@@ -37,7 +37,12 @@ public class CartController {
 
     @GetMapping("/payment/{id}")
     public String getPayment(@PathVariable long id){
+       Product p= productService.getProduct(id);
+       if(p.getQuantity()==1)
         productService.delete(id);
+        else
+            p.setQuantity((p.getQuantity())-1);
+        productService.saveProduct(p);
         return "payment";
     }
 }

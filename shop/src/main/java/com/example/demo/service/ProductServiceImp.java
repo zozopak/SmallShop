@@ -19,7 +19,7 @@ public class ProductServiceImp implements ProductService{
     }
 
     @Override
-    public void saveProductToDB(String name,String model,String price,String color, MultipartFile file) {
+    public void saveProductToDB(String name,String model,String price,String color, MultipartFile file,long quantity) {
 
         Product p=new Product();
         try {
@@ -31,6 +31,7 @@ public class ProductServiceImp implements ProductService{
         p.setModel(model);
         p.setPrice(price);
         p.setColor(color);
+        p.setQuantity(quantity);
         productRepo.save(p);
     }
 
@@ -47,5 +48,33 @@ public class ProductServiceImp implements ProductService{
     @Override
     public void delete(long id) {
         productRepo.deleteById(id);
+    }
+
+    @Override
+    public Product getProduct(long id) {
+     return   productRepo.getOne(id);
+    }
+
+    @Override
+    public void saveProduct(Product p) {
+        productRepo.save(p);
+    }
+
+    @Override
+    public void editProductInDB(long id, String name, String model, String price, String color, MultipartFile file, long quantity) {
+
+        Product p=new Product();
+        try {
+            p.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        p.setId(id);
+        p.setName(name);
+        p.setModel(model);
+        p.setPrice(price);
+        p.setColor(color);
+        p.setQuantity(quantity);
+        productRepo.save(p);
     }
 }

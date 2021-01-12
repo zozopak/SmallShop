@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en">
 <head>
-
-
-        <link rel="stylesheet" href="/css/style2.css">
-
-
-</head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>p
 <body>
-<form action="#" th:action="@{/add}" th:object="${product}" method="post" enctype="multipart/form-data">
+<form action="#" th:action="@{/update/{id}(id=${product.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
+    <label for="name">id</label>
+    <input type="text" th:field="*{id}" id="id" placeholder="id" required><br><br>
+
+
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name" placeholder="Name" required><br><br>
 
@@ -29,7 +30,7 @@
     <label for="image">quantity</label>
     <input type="text" th:field="*{quantity}" id="quantity" placeholder="quantity" ><br><br>
 
-    <input type="submit" value="Add Product">
+    <input type="submit" value="Edit Product">
 </form>
 </body>
 </html>

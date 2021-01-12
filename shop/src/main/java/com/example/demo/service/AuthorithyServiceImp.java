@@ -21,4 +21,10 @@ public class AuthorithyServiceImp implements AuthorityService {
         authorityRepo.save(authorities);
     }
 
+    @Override
+    public void deleteAuthority( String username) {
+        authorityRepo.deleteByUsername(username);
+    }
+
+
 }

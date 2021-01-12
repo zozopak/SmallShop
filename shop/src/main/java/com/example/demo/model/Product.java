@@ -14,7 +14,8 @@ public class Product implements Serializable {
     private String name;
     @Basic
     private String price;
-
+    @Basic
+    private long quantity;
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
@@ -22,6 +23,14 @@ public class Product implements Serializable {
 
 
     public Product() {
+    }
+
+    public long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
     }
 
     public long getId() {

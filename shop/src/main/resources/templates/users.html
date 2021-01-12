@@ -26,12 +26,12 @@
                 </thead>
                 <tbody>
 
-                <tr th:each="user:${usersList}">
+                <tr th:each="users:${usersList}">
 
                     <td th:text="${users.username}"></td>
                     <td th:text="${users.password}"></td>
 
-                    <td><a th:href="@{users/delete/{id}(id=${users.id})}">Delete</a></td>
+                    <td><a th:href="@{users/delete/{id}(id=${users.username})}">Delete</a></td>
                 </tr>
                 </tbody>
 
@@ -39,6 +39,9 @@
             </table>
         </div>
         <p><a href="/users/signup">Add new User></a></p>
+
+        <p><a href="/logout">Logout></a></p>
+
     </div>
 </div>
 </div>

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 
 <head>
     <link rel="stylesheet" href="/css/style.css">
+    <h1>Welcome to Mobile-Shop</h1>
+    <h3 sec:authentication="name"></h3>
+
+    <p><a href="/login">Login</a></p>
 </head>
 
 <body>
@@ -19,31 +23,45 @@
         <th scope="col">price</th>
         <th scope="col">color</th>
         <th scope="col">model</th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">quantity</th>
         <th scope="col">order</th>
+
+        <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Edit Product</th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Delete Product</th>
     </tr>
     </thead>
-                <tbody>
+    <tbody>
 
-                <tr th:each="product:${products}">
-                    <th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 100px;height
+    <tr th:each="product:${products}">
+        <th scope="row"><img alt="" th:src="*{'data:image/jpeg;base64,'+{product.image}}" style="width: 100px;height
 						: 100px;"></th>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.price}"></td>
-                    <td th:text="${product.color}"></td>
-                    <td th:text="${product.model}"></td>
-                    <td>
-                        <a th:href="@{/cart/{id}(id=${product.id})}">Add to Cart</a>
-                    </td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.color}"></td>
+        <td th:text="${product.model}"></td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${product.quantity}"></td>
+        <td>
+            <a th:href="@{/cart/{id}(id=${product.id})}">Add to Cart</a>
+        </td>
+
+        <td sec:authorize="hasRole('ROLE_ADMIN')">
+            <p><a th:href="@{/edit/{id}(id=${product.id})}">Edit Product</a></p>
+        </td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')">
+            <p><a th:href="@{/delete/{id}(id=${product.id})}">Delete Product</a></p>
+        </td>
+
+    </tr>
+    </tbody>
 
 
-                </tr>
-                </tbody>
+</table>
 
-
-            </table>
-        </div>
-        <p><a href="/signup">Add new Product</a></p>
-    </div>
 </div>
 </div>
+
+
+<p sec:authorize="hasRole('ROLE_ADMIN')"><a href="/product-register">Add Product</a></p>
+
+<p sec:authorize="hasRole('ROLE_USER')"><a href="/logout">Logout</a></p>
 </body>
