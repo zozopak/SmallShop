@@ -5,10 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>p
+</head>
 <body>
 <form action="#" th:action="@{/update/{id}(id=${product.id})}" method="post" th:object="${product}" enctype="multipart/form-data">
-    <label for="name">id</label>
+    <label for="name">ID</label>
     <input type="text" th:field="*{id}" id="id" placeholder="id" required><br><br>
 
 

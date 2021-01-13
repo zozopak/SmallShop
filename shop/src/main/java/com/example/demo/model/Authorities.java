@@ -11,6 +11,14 @@ public class Authorities {
     private String username;
     private String authority;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Basic
     @Column(name = "username")
     public String getUsername() {

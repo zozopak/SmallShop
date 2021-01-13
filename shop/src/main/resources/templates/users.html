@@ -20,8 +20,10 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Edit</th>
+                    <th>Password</th>
+
                     <th>Delete</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -32,11 +34,13 @@
                     <td th:text="${users.password}"></td>
 
                     <td><a th:href="@{users/delete/{id}(id=${users.username})}">Delete</a></td>
+
                 </tr>
                 </tbody>
 
 
             </table>
+
         </div>
         <p><a href="/users/signup">Add new User></a></p>
 

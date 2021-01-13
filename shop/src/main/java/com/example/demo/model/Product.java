@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Product implements Serializable {
@@ -25,6 +26,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
+  
     public long getQuantity() {
         return quantity;
     }

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-
-
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/users/add}" th:object="${users}" method="post">
+<form action="#" th:action="@{/users/update/{id}(id=${user.username})}" method="post" th:object="${user}">
     <label for="username">Name</label>
     <input type="text" th:field="*{username}" id="username" placeholder="Name" required>
 
@@ -16,7 +15,7 @@
     <input type="password" th:field="*{password}" id="password" placeholder="Password" required>
 
 
-    <input type="submit" value="Add User">
+    <input type="submit" value="update">
 </form>
 </body>
 </html>

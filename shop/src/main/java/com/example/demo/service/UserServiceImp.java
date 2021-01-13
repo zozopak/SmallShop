@@ -24,8 +24,8 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public Optional<Users> getUser(String id) {
-        return usersRepo.findById( id);
+    public Users getUser(String id) {
+        return usersRepo.getOne(id);
     }
 
     @Override
@@ -35,6 +35,7 @@ public class UserServiceImp implements UserService{
 
     @Override
     public void saveUser(Users users) {
-        usersRepo.save(users);
+        users.setPassword("{noop}"+(users.getPassword()));
+       usersRepo.save(users);
     }
 }
