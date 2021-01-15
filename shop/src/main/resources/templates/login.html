@@ -9,6 +9,7 @@
 </head>
 <body>
 <div>
+    <p style="color: red" th:if="${loginError}" class="error" >Wrong Username or Password!</p>
 <form  method="post"  th:action="@{/authenticateTheUser}">
     Username : <input type="text" name="username" required><br><br>
     Password : <input type="password" name="password" required><br><br>

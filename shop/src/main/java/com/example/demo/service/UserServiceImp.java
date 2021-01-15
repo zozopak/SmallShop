@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService{
@@ -36,6 +35,7 @@ public class UserServiceImp implements UserService{
     @Override
     public void saveUser(Users users) {
         users.setPassword("{noop}"+(users.getPassword()));
+        users.setEnabled((byte) 1);
        usersRepo.save(users);
     }
 }

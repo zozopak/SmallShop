@@ -21,21 +21,13 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      //  auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
+
      auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-     /*   http.authorizeRequests().
-                antMatchers("/users/**").
-                authenticated()
-                .and().
-                formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/authenticateTheUser").permitAll().and().logout().permitAll();
-
-      */
+    
         http
 
                 .authorizeRequests()
@@ -45,7 +37,7 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/authenticateTheUser")
+                .loginProcessingUrl("/authenticateTheUser").failureUrl("/login-error")
                 .permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")

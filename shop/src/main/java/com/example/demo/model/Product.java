@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,13 +21,13 @@ public class Product implements Serializable {
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
+    @Basic
     private String color;
-
 
     public Product() {
     }
 
-  
+
     public long getQuantity() {
         return quantity;
     }

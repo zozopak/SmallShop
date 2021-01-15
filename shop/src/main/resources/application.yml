@@ -14,7 +14,9 @@ spring:
     generate-ddl: true
     hibernate:
        ddl-auto: update
-
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
 
   servlet:
@@ -24,3 +26,7 @@ spring:
       max-request-size: 215MB
       file-size-threshold: 2KB
 
+
+
+server:
+  port: 9090

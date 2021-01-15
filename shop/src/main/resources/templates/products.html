@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="/css/style.css">
     <h1>Welcome to Mobile-Shop</h1>
     <h3 sec:authentication="name"></h3>
-
+    <p sec:authorize="hasRole('ROLE_USER')"><a href="/cart">My Shopping Cart</a></p>
     <p><a href="/login">Login</a></p>
+
+
+
 </head>
 
 <body>
@@ -62,6 +65,8 @@
 
 
 <p sec:authorize="hasRole('ROLE_ADMIN')"><a href="/product-register">Add Product</a></p>
+<p sec:authorize="hasRole('ROLE_ADMIN')"><a href="/users">List of Users</a></p>
+
 
 <p sec:authorize="hasRole('ROLE_USER')"><a href="/logout">Logout</a></p>
 </body>
