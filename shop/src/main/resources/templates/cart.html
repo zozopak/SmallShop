@@ -10,8 +10,35 @@
   <h1 sec:authentication="name" >
 
     </h1>
+    <table >
+
+        <tr>
+
+
+            <th >Username</th>
+            <th >Budget</th>
+
+
+        </tr>
+
+
+        <!--/*@thymesVar id="p" type=""*/-->
+
+        <tr th:each="users:${usersList}">
+            <td th:text="${users.username}"></td>
+            <td th:text="${users.budget}"></td>
+
+
+        </tr>
+
+
+
+
+    </table></br>
 </head>
 <body>
+
+
 <h3 class="text-center">Order's List :</h3>
 
 <table class="table">
@@ -45,6 +72,7 @@
              </td>
 
          </tr>
+
     </tbody>
 
 

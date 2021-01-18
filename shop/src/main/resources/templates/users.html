@@ -21,6 +21,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Password</th>
+                    <th>Budget</th>
 
                     <th>Delete</th>
 
@@ -32,6 +33,7 @@
 
                     <td th:text="${users.username}"></td>
                     <td th:text="${users.password}"></td>
+                    <td th:text="${users.budget}"></td>
                     <td><a th:href="@{users/edit/{id}(id=${users.username})}">Edit</a></td>
                     <td><a th:href="@{users/delete/{id}(id=${users.username})}">Delete</a></td>
 

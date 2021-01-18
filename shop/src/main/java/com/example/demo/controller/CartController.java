@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Cart;
 import com.example.demo.model.Product;
+import com.example.demo.model.Users;
 import com.example.demo.repository.CartRepo;
 import com.example.demo.service.CartService;
 import com.example.demo.service.ProductService;
@@ -56,7 +57,10 @@ public class CartController {
             p.add(product);
 
         }
-
+        Users user= userService.getUser(principal.getName());
+        List<Users> users=new ArrayList<>();
+        users.add(user);
+        model.addAttribute("usersList",users);
 
         model.addAttribute("p", p);
         return "cart";
@@ -76,7 +80,10 @@ public class CartController {
             p.add(product);
 
         }
-
+       Users user= userService.getUser(principal.getName());
+       List<Users> users=new ArrayList<>();
+       users.add(user);
+        model.addAttribute("usersList",users);
 
         model.addAttribute("p", p);
         return "cart";
@@ -92,10 +99,16 @@ public class CartController {
         else
             p.setQuantity((p.getQuantity()) - 1);
         productService.saveProduct(p);
+       Users user= userService.getUser(principal.getName());
+       if(user.getBudget()<Integer.parseInt(p.getPrice())){
+           return "budget-error";
+       }else {
+         int i=  (user.getBudget())-(Integer.parseInt(p.getPrice()));
+         user.setBudget(i);
+           cartService.deleteCart(principal.getName(), id);
 
-        cartService.deleteCart(principal.getName(), id);
-
-        return "payment";
+           return "payment";
+       }
     }
     @Transactional
     @GetMapping("/delete/{id}")
@@ -104,4 +117,6 @@ public class CartController {
         cartService.deleteCart(principal.getName(), id);
         return "redirect:/cart";
     }
+
+
 }

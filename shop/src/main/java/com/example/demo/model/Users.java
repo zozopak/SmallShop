@@ -9,6 +9,15 @@ public class Users {
     private String username;
     private String password;
     private byte enabled;
+    private int budget;
+     @Basic
+    public int getBudget() {
+        return budget;
+    }
+
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
 
     @Id
     @Column(name = "username")
