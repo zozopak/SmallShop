@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Authorities;
 import com.example.demo.model.Product;
 import com.example.demo.model.Users;
+import com.example.demo.service.AuthorityService;
 import com.example.demo.service.ProductService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,12 +20,27 @@ import java.util.List;
 public class HomeController {
 
     private ProductService productService;
-
+    private UserService userService;
+    private AuthorityService authorityService;
     @Autowired
     @Qualifier("productServiceImp")
     public void set(ProductService productService) {
         this.productService = productService;
     }
+
+    @Autowired
+    @Qualifier("userServiceImp")
+    public void set(UserService userService) {
+        this.userService = userService;
+    }
+
+
+    @Autowired
+    @Qualifier("authorithyServiceImp")
+    public void set(AuthorityService authorityService) {
+        this.authorityService = authorityService;
+    }
+
 
     @GetMapping
     public String index(Model model) {
@@ -70,5 +88,28 @@ public class HomeController {
     public String goRegister(Users users){
         return "add-user";
     }
+
+    @PostMapping("/add-user")
+    public String addUser(Users users, Model model) {
+        List<Users> allUser= userService.findAll();
+        for(Users user:allUser) {
+            if (user.getUsername().equals(users.getUsername()))
+                return "username-error";
+        }
+                userService.saveUser(users);
+                Authorities authorities = new Authorities();
+                authorityService.SaveAuthority(authorities, users);
+                List<Users> usersList = userService.findAll();
+                model.addAttribute("users", usersList);
+                return "/login";
+
+        }
+
+    @GetMapping("/username-error")
+    public String goError(Users users){
+        return "username-error";
+    }
+
 }
+
 

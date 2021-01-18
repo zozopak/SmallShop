@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Authorities;
+import com.example.demo.model.Cart;
 import com.example.demo.model.Users;
 import com.example.demo.service.AuthorityService;
+import com.example.demo.service.CartService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +20,8 @@ import java.util.List;
 public class UserController {
     private UserService userService;
     private AuthorityService authorityService;
+    private CartService cartService;
+
 
     @Autowired
     @Qualifier("userServiceImp")
@@ -32,23 +36,12 @@ public class UserController {
         this.authorityService = authorityService;
     }
 
-
-    @GetMapping("/signup")
-    public String goRegister(Users users) {
-        return "add-user";
+    @Autowired
+    @Qualifier("cartServiceImp")
+    public void set(CartService cartService) {
+        this.cartService = cartService;
     }
 
-    @PostMapping("/add")
-    public String addUser(Users users, Model model) {
-
-
-        userService.saveUser(users);
-        Authorities authorities = new Authorities();
-        authorityService.SaveAuthority(authorities, users);
-        List<Users> usersList = userService.findAll();
-        model.addAttribute("users", usersList);
-        return "redirect:/users";
-    }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable String id, Model model) {
@@ -59,7 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable long id, Users user) {
+    public String update(@PathVariable String id, Users user) {
 
         userService.saveUser(user);
         return "redirect:/users";
@@ -68,6 +61,11 @@ public class UserController {
     @Transactional
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable String id, Model model) {
+        List<Cart> cartList=cartService.getAll();
+        for(Cart c:cartList){
+            if(c.getUsername().equals(id))
+                cartService.deleteCartByUsername(id);
+        }
         authorityService.deleteAuthority(id);
         userService.deleteUser(id);
         List<Users> users = userService.findAll();

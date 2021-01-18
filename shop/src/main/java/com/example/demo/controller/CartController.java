@@ -26,6 +26,7 @@ public class CartController {
     private ProductService productService;
     private UserService userService;
     private CartService cartService;
+
     @Autowired
     @Qualifier("userServiceImp")
     public void set(UserService userService) {
@@ -35,7 +36,7 @@ public class CartController {
     @Autowired
     @Qualifier("cartServiceImp")
     public void set(CartService cartService) {
-        this.cartService=cartService;
+        this.cartService = cartService;
     }
 
 
@@ -46,16 +47,15 @@ public class CartController {
     }
 
     @GetMapping
-    public String getIndex(Model model,Principal principal){
+    public String getIndex(Model model, Principal principal) {
         List<Product> p = new ArrayList<>();
-        List<Cart> carts= cartService.getCarts(principal.getName());
-        for(Cart cart:carts){
-            long productID =cart.getProductID();
-            Product product=productService.getProduct(productID);
+        List<Cart> carts = cartService.getCarts(principal.getName());
+        for (Cart cart : carts) {
+            long productID = cart.getProductID();
+            Product product = productService.getProduct(productID);
             p.add(product);
 
         }
-
 
 
         model.addAttribute("p", p);
@@ -63,40 +63,45 @@ public class CartController {
     }
 
     @GetMapping("/{id}")
-    public String getCart(@PathVariable(name = "id") long id, Model model,Principal principal) {
+    public String getCart(@PathVariable(name = "id") long id, Model model, Principal principal) {
         List<Product> p = new ArrayList<>();
-        Cart c=new Cart();
+        Cart c = new Cart();
         c.setProductID(id);
         c.setUsername(principal.getName());
         cartService.addCart(c);
-      List<Cart> carts= cartService.getCarts(principal.getName());
-      for(Cart cart:carts){
-         long productID =cart.getProductID();
-         Product product=productService.getProduct(productID);
-         p.add(product);
+        List<Cart> carts = cartService.getCarts(principal.getName());
+        for (Cart cart : carts) {
+            long productID = cart.getProductID();
+            Product product = productService.getProduct(productID);
+            p.add(product);
 
-      }
-
+        }
 
 
         model.addAttribute("p", p);
         return "cart";
     }
+
     @Transactional
     @GetMapping("/payment/{id}")
-    public String getPayment(@PathVariable long id,Principal principal){
+    public String getPayment(@PathVariable long id, Principal principal) {
 
-       Product p= productService.getProduct(id);
-       if(p.getQuantity()==1)
-        productService.delete(id);
+        Product p = productService.getProduct(id);
+        if (p.getQuantity() == 1)
+            productService.delete(id);
         else
-            p.setQuantity((p.getQuantity())-1);
+            p.setQuantity((p.getQuantity()) - 1);
         productService.saveProduct(p);
 
-      cartService.deleteCart(principal.getName(),id);
+        cartService.deleteCart(principal.getName(), id);
 
         return "payment";
     }
+    @Transactional
+    @GetMapping("/delete/{id}")
+    public String deleteCart(@PathVariable long id, Principal principal) {
 
-
+        cartService.deleteCart(principal.getName(), id);
+        return "redirect:/cart";
+    }
 }

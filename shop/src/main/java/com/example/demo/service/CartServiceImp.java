@@ -37,5 +37,15 @@ public class CartServiceImp implements CartService{
         cartRepo.deleteByUsernameAndProductID(username,productID);
     }
 
+    @Override
+    public List<Cart> getAll() {
+        return cartRepo.findAll();
+    }
+
+    @Override
+    public void deleteCartByUsername(String username) {
+        cartRepo.deleteByUsername(username);
+    }
+
 
 }

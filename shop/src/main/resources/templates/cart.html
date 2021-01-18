@@ -12,17 +12,18 @@
     </h1>
 </head>
 <body>
-<h3 class="text-center">Order Details :</h3>
+<h3 class="text-center">Order's List :</h3>
 
 <table class="table">
     <thead class="thead-dark">
     <tr>
 
-        <th scope="col">name</th>
-        <th scope="col">price</th>
-        <th scope="col">color</th>
-        <th scope="col">model</th>
-        <th scope="col">payment</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Color</th>
+        <th scope="col">Model</th>
+        <th scope="col">Payment</th>
+        <th scope="col">Delete</th>
 
 
     </tr>
@@ -39,7 +40,9 @@
              <td>
                  <a th:href="@{/cart/payment/{id}(id=${product.id})}">Buy</a>
              </td>
-
+             <td>
+                 <a th:href="@{/cart/delete/{id}(id=${product.id})}">Delete</a>
+             </td>
 
          </tr>
     </tbody>
