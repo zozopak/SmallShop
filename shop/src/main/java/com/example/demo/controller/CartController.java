@@ -58,9 +58,8 @@ public class CartController {
 
         }
         Users user= userService.getUser(principal.getName());
-        List<Users> users=new ArrayList<>();
-        users.add(user);
-        model.addAttribute("usersList",users);
+
+        model.addAttribute("user",user);
 
         model.addAttribute("p", p);
         return "cart";
@@ -81,9 +80,8 @@ public class CartController {
 
         }
        Users user= userService.getUser(principal.getName());
-       List<Users> users=new ArrayList<>();
-       users.add(user);
-        model.addAttribute("usersList",users);
+
+        model.addAttribute("user",user);
 
         model.addAttribute("p", p);
         return "cart";
