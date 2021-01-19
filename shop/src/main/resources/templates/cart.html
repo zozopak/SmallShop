@@ -7,22 +7,17 @@
     <head>
         <link rel="stylesheet" href="/css/style.css">
     </head>
-  <h1 sec:authentication="name" >
+    <h1 sec:authentication="name">
 
     </h1>
-    <table >
+    <table>
 
         <tr>
-
-
-
-            <th >Budget</th>
-
-
+            <th>Budget</th>
         </tr>
 
 
-        <!--/*@thymesVar id="p" type=""*/-->
+
 
         <tr th:each="users:${user}">
 
@@ -32,9 +27,8 @@
         </tr>
 
 
-
-
-    </table></br>
+    </table>
+    </br>
 </head>
 <body>
 
@@ -59,24 +53,25 @@
 
     <!--/*@thymesVar id="p" type=""*/-->
 
-         <tr th:each="product:${p}">
-             <td th:text="${product.name}"></td>
-             <td th:text="${product.price}"></td>
-             <td th:text="${product.color}"></td>
-             <td th:text="${product.model}"></td>
-             <td>
-                 <a th:href="@{/cart/payment/{id}(id=${product.id})}">Buy</a>
-             </td>
-             <td>
-                 <a th:href="@{/cart/delete/{id}(id=${product.id})}">Delete</a>
-             </td>
+    <tr th:each="product:${p}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.color}"></td>
+        <td th:text="${product.model}"></td>
+        <td>
+            <a th:href="@{/cart/payment/{id}(id=${product.id})}">Buy</a>
+        </td>
+        <td>
+            <a th:href="@{/cart/delete/{id}(id=${product.id})}">Delete</a>
+        </td>
 
-         </tr>
+    </tr>
 
     </tbody>
 
 
-</table></br>
+</table>
+</br>
 
 
 <a href="/">Back to Home</a>
